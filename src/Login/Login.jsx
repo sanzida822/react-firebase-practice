@@ -9,6 +9,8 @@ const Login = () => {
     // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 const googleAuthProvider=new GoogleAuthProvider();
+const githubAuthProvider=new GoogleAuthProvider();
+
 const handleGoogleSign=()=>{
     signInWithPopup(auth,googleAuthProvider)
     .then(result=>{
@@ -22,6 +24,21 @@ const handleGoogleSign=()=>{
 
 
     
+}
+
+
+const handleGithubSign=()=>{
+    signInWithPopup(auth,githubAuthProvider)
+    .then(result=>{
+        console.log("ff")
+        const loginUser=result.user;
+        console.log(loginUser)
+        setUser(loginUser)
+    })
+.catch(error=>{
+    console.log('error',error.message)
+})
+
 }
 
 const handleSignOut=()=>{
@@ -43,7 +60,10 @@ const handleSignOut=()=>{
 {/* user thakle signout dekhabe otherwisena */}
  {user?
           <button onClick={handleSignOut}>sign out</button>:
+          <>
            <button onClick={handleGoogleSign}>google login</button>
+           <button onClick={handleGithubSign}>github login</button>
+          </>
   
  }
            {user && <div>
